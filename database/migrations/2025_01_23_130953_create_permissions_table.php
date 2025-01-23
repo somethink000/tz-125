@@ -13,14 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('products', function (Blueprint $table) {
+        Schema::create('permissions', function (Blueprint $table) {
             $table->id();
-            $table->string("article", 255)->unique()->index();
-            $table->string("name", 255);
-            $table->string("status", 255);
-            $table->jsonb("data");
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
@@ -31,8 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('products', function (Blueprint $table) {
-            $table->dropSoftDeletes();
-        });
+        Schema::dropIfExists('permissions');
     }
 };

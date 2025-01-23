@@ -1,11 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
-Route::get('/', fn () => view('app'))->name('app');
+Auth::routes();
 
-// Route::get('/reset-password/{token}', fn () => view('app'))
-//     ->middleware(['guest:'.config('fortify.guard')])
-//     ->name('password.reset');
-
-Route::get('{any}', fn () => view('app'))->where('any', '^((?!api).)*');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
