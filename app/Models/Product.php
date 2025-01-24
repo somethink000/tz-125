@@ -17,7 +17,4 @@ class Product extends Model
         "data"
     ];
 
-    public function tasks(){
-        return $this->hasMany(Product::class,'taskbox_id','id');
-    }
 }

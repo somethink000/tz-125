@@ -5,25 +5,18 @@ namespace App\Http\Controllers;
 use App\Http\Services;
 use Illuminate\Http\Request;
 use App\Models\Product;
-
+use App\Http\Requests\ProductStoreRequest;
+use App\Http\Requests\ProductUpdateRequest;
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
+
     public function __construct()
     {
         $this->middleware('auth');
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
+
     public function index()
     {
         $products = Product::get();
@@ -31,15 +24,33 @@ class HomeController extends Controller
         return view('index',compact('products'));
     }
 
-        /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
+     
     public function home()
     {
         return view('home');
     }
 
+
+    public function createProduct(ProductStoreRequest $request)
+    {
+        
+        $request->request->add(['data' => json_encode(["flat"])]);
+
+        return Product::create($request->all());;
+       
+    }
+
+
+    public function updateProduct(ProductUpdateRequest $request, Product $product)
+    {
+
+        $product->update($request->all());
+
+        return $product;
+    }
     
+
+    public function product(Product $product) {
+        return view('product',compact('product'));
+    }
 }

@@ -5,10 +5,8 @@
 
         <div class="album py-5 bg-light">
             <div class="container">
-                
-
-                
-                <button type="button" style="border: none; background: none;" data-toggle="modal" data-target="#createProduct" ><img style="filter: brightness(0%); margin-bottom:12px;" src="/assets/plus.svg"width="28" alt=""/></button>
+                         
+                <button type="button" style="border: none; background: none;" data-toggle="modal" data-target="#createProduct" ><img style="filter: brightness(0%); margin-bottom:12px;" src="/assets/edit.svg"width="28" alt=""/></button>
 
                 <div class="modal fade" id="createProduct" tabindex="-1" role="dialog" aria-labelledby="createProductTitle" aria-hidden="true">
                     <div class="modal-dialog" role="document">
@@ -62,28 +60,7 @@
                 </div>
 
 
-                <div class="row">
-                    
-                    @foreach ($products as $mbr)
-                        <div class="col-md-4">
-                       
-                            <div class="card mb-4 box-shadow">
-                                <img class="card-img-top" src="/assets/thump.svg" alt="Card image cap">
-                                <div class="card-body">
-                                    <p class="card-text">{{$mbr->name}}</p>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                    <div class="btn-group">
-                                        <a href="{{route('product',$mbr->id)}}" class="btn btn-sm btn-outline-secondary">View</a>
-                                        {{-- <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button> --}}
-                                    </div>
-                                    <small class="text-muted">{{$mbr->status}} mins</small>
-                                    </div>
-                                </div>
-                            </div> 
-                        </div>
-                    @endforeach
-
-                </div>
+                {{$product}}
 
             </div>
         </div>
