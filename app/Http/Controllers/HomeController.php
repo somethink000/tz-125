@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Services;
 use Illuminate\Http\Request;
+use App\Models\Product;
+
 
 class HomeController extends Controller
 {
@@ -23,6 +26,20 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $products = Product::get();
+
+        return view('index',compact('products'));
+    }
+
+        /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function home()
+    {
         return view('home');
     }
+
+    
 }
