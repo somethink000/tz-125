@@ -20,7 +20,7 @@
                                 </button>
                                 </div>
 
-                                <form method="POST" action="{{route('create_product')}}">
+                                <form method="POST" action="{{route('product.store')}}">
 
                                     <div class="modal-body">
 
@@ -73,7 +73,7 @@
                                     <p class="card-text">{{$mbr->name}}</p>
                                     <div class="d-flex justify-content-between align-items-center">
                                     <div class="btn-group">
-                                        <a href="{{route('product',$mbr->id)}}" class="btn btn-sm btn-outline-secondary">View</a>
+                                        <a href="{{route('product.show',$mbr->id)}}" class="btn btn-sm btn-outline-secondary">View</a>
                                         {{-- <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button> --}}
                                     </div>
                                     <small class="text-muted">{{$mbr->status}} mins</small>

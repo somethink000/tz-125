@@ -18,19 +18,21 @@
                                 </button>
                                 </div>
 
-                                <form method="POST" action="{{route('create_product')}}">
+                                <form method="POST" action="{{route('product.update', $product->id)}}">
 
                                     <div class="modal-body">
-
-                                        
+                                            @method('PATCH')
                                             @csrf
+
+                                            @role('web-developer')
+                                                <div class="form-group">
+                                                    <label for="recipient-name" class="col-form-label">Заголовок:</label>
+                                                    <input type="text" name="article" class="form-control" id="recipient-name" value="{{$product->article}}">
+                                                </div>
+                                            @endrole 
                                             <div class="form-group">
-                                            <label for="recipient-name" class="col-form-label">Заголовок:</label>
-                                            <input type="text" name="article" class="form-control" id="recipient-name">
-                                            </div>
-                                            <div class="form-group">
-                                            <label for="message-text" class="col-form-label">Название:</label>
-                                            <textarea class="form-control" name="name" id="message-text"></textarea>
+                                                <label for="message-text" class="col-form-label">Название:</label>
+                                                <input class="form-control" name="name" id="message-text" value="{{$product->name}}">
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-form-label">Статус:</label>
@@ -52,7 +54,7 @@
                                     </div>
                                     <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
-                                    <button type="submit" class="btn btn-primary">Добавить</button>
+                                    <button type="submit" class="btn btn-primary">Сохранить</button>
                                 </form>
                             </div>
                         </div>
