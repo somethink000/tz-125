@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\User;
+use App\Jobs\ProductCreatedMail;
 use App\Http\Requests\ProductStoreRequest;
 use App\Http\Requests\ProductUpdateRequest;
-
+use App\Notifications\ProductCreated;
+use Illuminate\Support\Facades\Notification;
 
 class ProductController extends Controller
 {
@@ -19,7 +22,7 @@ class ProductController extends Controller
     {
         //
     }
-    
+
     /**
      * Show the form for creating a new resource.
      *
@@ -40,7 +43,11 @@ class ProductController extends Controller
     {
         $request->request->add(['data' => json_encode(["flat"])]);
 
-        return Product::create($request->all());;
+        return Product::create($request->all());
+
+        Notification::route('mail', [
+            'barrett@example.com' => 'Barrett Blair',
+        ])->notify(new ProductCreated($invoice));
     }
 
     /**
@@ -51,7 +58,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        return view('product',compact('product'));
+        return view('product', compact('product'));
     }
 
     /**
@@ -74,9 +81,20 @@ class ProductController extends Controller
      */
     public function update(ProductUpdateRequest $request, Product $product)
     {
+        //проверка если артикл изменился и его изменил не девелопер 
+        if($product->article != $request->input('article') && !auth()->user()->hasRole('web-developer')) {
+            abort(404);
+        }
+        
+
         $product->update($request->all());
 
+        
+        
+        ProductCreatedMail::dispatch()->onQueue('emails');
+
         return $product;
+
     }
 
     /**
