@@ -19,7 +19,7 @@ class Kernel extends ConsoleKernel
     {
         $schedule->call(function () {
 
-            $response = Http::post('http://webhook.site', [
+            $response = Http::post(config('products.webhook'), [
                 'product' => Product::whereRaw('id = (select max(`id`) from orders)')->get(),
             ]);
 

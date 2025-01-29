@@ -9,6 +9,8 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Mail;
+use App\Notifications\ProductCreated;
+use Illuminate\Support\Facades\Notification;
 
 class ProductCreatedMail implements ShouldQueue
 {
@@ -31,6 +33,7 @@ class ProductCreatedMail implements ShouldQueue
      */
     public function handle()
     {
-        Mail::raw("Test", fn($mail) => $mail->to('zubkoffalex4nder@yandex.ru'));
+        Mail::raw("Test", fn($mail) => $mail->to(config('products.email')));
+        
     }
 }

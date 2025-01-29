@@ -33,8 +33,8 @@ class DatabaseSeeder extends Seeder
         }
 
         $data = new Role();
-        $data->name = 'Web Developer';
-        $data->slug = 'web-developer';
+        $data->name = 'Admin';
+        $data->slug = config('products.role');
         $data->save();
 
         $data = new Permission();
@@ -42,7 +42,7 @@ class DatabaseSeeder extends Seeder
         $data->slug = 'create-products';
         $data->save();
 
-        $developer = Role::where('slug','web-developer')->first();
+        $developer = Role::where('slug',config('products.role'))->first();
         $createProds = Permission::where('slug','create-products')->first();
 
         $user1 = new User();
