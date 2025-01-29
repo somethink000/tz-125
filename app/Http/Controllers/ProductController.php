@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\User;
 use App\Jobs\ProductCreatedMail;
 use App\Http\Requests\ProductStoreRequest;
 use App\Http\Requests\ProductUpdateRequest;
+use App\Notifications\ProductCreated;
+use Illuminate\Support\Facades\Notification;
 
 class ProductController extends Controller
 {
@@ -40,9 +43,17 @@ class ProductController extends Controller
     {
         $request->request->add(['data' => json_encode(["flat"])]);
 
-        ProductCreatedMail::dispatch()->onQueue('emails');
-        
+        //ProductCreatedMail::dispatch()->onQueue('emails');
+
+        $invoice = 'dwd';
+
+        Notification::route('mail', [
+            config('products.email') => 'Barrett Blair',
+        ])->notify(new ProductCreated($invoice));
+
         return Product::create($request->all());
+
+        
     }
 
     /**
@@ -81,7 +92,6 @@ class ProductController extends Controller
             abort(404);
         }
         
-    
         $product->update($request->all());
 
         return $product;
